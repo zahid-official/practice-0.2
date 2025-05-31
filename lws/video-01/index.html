@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video-01</title>
+  </head>
+  <body>
+    <h2 id="greeting">Hello World</h2>
+
+    <img
+      id="bulb"
+      style="width: 120px; padding-left: 30px"
+      src="https://www.w3schools.com/js/pic_bulboff.gif"
+      alt=""
+    />
+
+    <div style="padding-top: 20px">
+      <button onclick="document.getElementById('bulb').src='https://www.w3schools.com/js/pic_bulbon.gif'">Turn on Bulb</button>
+      <button onclick="document.getElementById('bulb').src='https://www.w3schools.com/js/pic_bulboff.gif'">Turn off Bulb</button>
+    </div>
+
+    <script>
+      document.getElementById("greeting").innerHTML =
+        "Hello to Programming World";
+      document.getElementById("greeting").innerText = "Hello JavaScript";
+      document.getElementById("greeting").style.color = "teal";
+    </script>
+  </body>
+</html>
