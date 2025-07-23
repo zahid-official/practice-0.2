@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InnerText vs InnerHtml</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="subroot"></div>
+
+    <!-- result -->
+     <br><br>
+    <img src="result.png" alt="" />
+    <img src="result2.png" alt="" />
+
+    <script>
+      // innerHTML allows HTML parsing
+      document.getElementById("root").innerHTML = "<b>Changed by innerHTML</b>";
+
+      // innerText just prints the raw text
+      document.getElementById("subroot").innerText =
+        "<b>Changed by innerText</b>";
+    </script>
+  </body>
+</html>
