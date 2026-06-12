@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 // AppNotifications Component
@@ -6,8 +7,8 @@ const AppNotifications = () => {
     <div>
       <h1>App Notifications</h1>
 
-      <Link href={"/dashboard/archived"} className="p-3 bg-slate-800 rounded mt-3 block">
-        <button>Archived Notifications</button>
+      <Link href={"/dashboard/archived"}>
+        <Button>Archived Notifications</Button>
       </Link>
     </div>
   );

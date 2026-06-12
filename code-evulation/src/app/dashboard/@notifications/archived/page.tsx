@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 // ArchivedNotifications Component
@@ -8,9 +9,8 @@ const ArchivedNotifications = () => {
 
       <Link
         href={"/dashboard"}
-        className="p-3 bg-slate-800 rounded mt-3 block"
       >
-        <button>Archived Notifications</button>
+        <Button>Archived Notifications</Button>
       </Link>
     </div>
   );
