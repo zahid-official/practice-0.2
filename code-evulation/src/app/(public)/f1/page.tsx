@@ -6,7 +6,7 @@ const SourceFolder = () => {
   return (
     <div>
       <h1>Welcome to the Source Folder Component</h1>
-      <Link href={"/f1/f2"}>
+      <Link href={"/f3"}>
         <Button>Go to Target Folder</Button>
       </Link>
     </div>
