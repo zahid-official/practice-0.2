@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { users } from "./data";
 
 // Get Users
@@ -6,8 +7,8 @@ const GET = async () => {
 };
 
 // Post Users
-const POST = async (request: Request) => {
-  const data = await request.json();
+const POST = async (req: NextRequest) => {
+  const data = await req.json();
   const newData = { id: users.length + 1, ...data };
 
   users.push(newData);
