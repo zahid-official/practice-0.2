@@ -26,6 +26,7 @@ const DynamicImage = async ({ params }: IProps) => {
         height={1080}
         width={1920}
         quality={100}
+        loading="eager"
         className="max-w-2xl"
         suppressHydrationWarning
       />
