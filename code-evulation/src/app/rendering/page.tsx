@@ -12,6 +12,10 @@ const RenderingPage = () => {
       <Link href={"/rendering/dynamic"}>
         <Button>Dynamic Rendering</Button>
       </Link>
+
+      <Link href={"/rendering/streaming"}>
+        <Button>Streaming</Button>
+      </Link>
     </div>
   );
 };

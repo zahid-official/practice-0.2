@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+// Return not-found page if dynamic param not included in our prerendered list
+export const dynamicParams = false;
+
+// Generate static params for the dynamic route
 export const generateStaticParams = () => {
   return [{ id: "1" }, { id: "2" }];
 };
