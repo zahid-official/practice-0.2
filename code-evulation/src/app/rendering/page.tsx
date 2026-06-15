@@ -16,6 +16,10 @@ const RenderingPage = () => {
       <Link href={"/rendering/streaming"}>
         <Button>Streaming</Button>
       </Link>
+
+      <Link href={"/rendering/composition-patterns"}>
+        <Button>Composition Patterns</Button>
+      </Link>
     </div>
   );
 };
