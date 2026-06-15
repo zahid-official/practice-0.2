@@ -16,11 +16,12 @@ const Navbar = () => {
     { label: "Login", href: "/login" },
     { label: "Register", href: "/register" },
     { label: "Dashboard", href: "/dashboard" },
+    { label: "Rendering", href: "/rendering" },
   ];
 
   const pathName = usePathname();
   return (
-    <nav className="py-8 flex gap-2.5 border-b justify-center items-center">
+    <nav className="py-8 flex gap-4 border-b justify-center items-center">
       {navlinks.map((link, index) => {
         const isActive =
           pathName === link.href ||
