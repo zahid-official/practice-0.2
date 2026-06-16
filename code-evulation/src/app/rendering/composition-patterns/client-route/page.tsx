@@ -2,6 +2,7 @@
 
 import { useTheme } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
+import clientUtils from "@/utils/clientUtils";
 import Link from "next/link";
 
 // ClientRoutePage Component
@@ -20,7 +21,8 @@ const ClientRoutePage = () => {
         Welcome to the ClientRoutePage Component
       </h1>
 
-      <p>Client Result : {/*{serverUtils()} */} </p>
+      <p>Client Result for serverUtils: {/* {serverUtils()} */} </p>
+      <p>Client Result for clientUtils: {clientUtils()} </p>
 
       <Link href="/rendering/composition-patterns">
         <Button>Back to Composition Patterns Page</Button>

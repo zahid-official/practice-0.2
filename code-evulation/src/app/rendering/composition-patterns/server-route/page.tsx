@@ -8,7 +8,8 @@ const ServerRoutePage = () => {
     <div className="space-y-4">
       <h1>Welcome to the ServerRoutePage Component</h1>
 
-      <p>Server Result : {serverUtils()}</p>
+      <p>Server Result for serverUtils: {serverUtils()}</p>
+      <p>Client Result for clientUtils: {/* {clientUtils()} */} </p>
 
       <Link href="/rendering/composition-patterns">
         <Button>Back to Composition Patterns Page</Button>
