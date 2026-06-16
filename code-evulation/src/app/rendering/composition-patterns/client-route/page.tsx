@@ -1,5 +1,6 @@
 "use client";
 
+import { useTheme } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -11,9 +12,13 @@ const ClientRoutePage = () => {
       2. Pass the result from server component to client component as a prop
   */
 
+  const theme = useTheme();
+
   return (
     <div className="space-y-4">
-      <h1>Welcome to the ClientRoutePage Component</h1>
+      <h1 style={{ color: theme.colors.secondary }}>
+        Welcome to the ClientRoutePage Component
+      </h1>
 
       <p>Client Result : {/*{serverUtils()} */} </p>
 
