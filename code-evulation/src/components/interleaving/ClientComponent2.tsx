@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "../ui/button";
 
 // ClientComponent2 Component
 const ClientComponent2 = () => {
   const [name, setName] = useState("Robin");
   return (
-    <div>
-      <h1>Welcome to the ClientComponent2 Component {name}</h1>
-      <button onClick={() => setName("Robin")}>Change Name</button>
+    <div className="mt-5">
+      <h1>ClientComponent2{name}</h1>
+      <Button onClick={() => setName("Zahid")}>
+        Change Name from ClientComponent2
+      </Button>
     </div>
   );
 };

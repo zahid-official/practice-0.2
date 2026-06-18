@@ -20,6 +20,10 @@ const RenderingPage = () => {
       <Link href={"/rendering/composition-patterns"}>
         <Button>Composition Patterns</Button>
       </Link>
+
+      <Link href={"/rendering/interleaving"}>
+        <Button>Interleaving</Button>
+      </Link>
     </div>
   );
 };
