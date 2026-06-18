@@ -17,6 +17,7 @@ const Navbar = () => {
     { label: "Register", href: "/register" },
     { label: "Dashboard", href: "/dashboard" },
     { label: "Rendering", href: "/rendering" },
+    { label: "Fetching", href: "/fetching" },
   ];
 
   const pathName = usePathname();
