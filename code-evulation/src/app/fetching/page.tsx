@@ -14,6 +14,14 @@ const FetchingPage = () => {
       <Link href={"/fetching/server"}>
         <Button>Fetching with Server</Button>
       </Link>
+
+      <Link href={"/fetching/sequential"}>
+        <Button>Sequential Data Fetching</Button>
+      </Link>
+
+      <Link href={"/fetching/parallel"}>
+        <Button>Parallel Data Fetching</Button>
+      </Link>
     </div>
   );
 };
