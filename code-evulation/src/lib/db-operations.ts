@@ -1,3 +1,6 @@
+"use server";
+
+import { Product } from "../../generated/prisma/client";
 import { prisma } from "./prisma";
 
 // Seed the database with products if there are no products
@@ -40,4 +43,11 @@ const getAllProducts = async () => {
   return await prisma.product.findMany();
 };
 
-export { getAllProducts };
+// createProduct
+const createProduct = async (payload: Omit<Product, "id">) => {
+  return await prisma.product.create({
+    data: payload,
+  });
+};
+
+export { createProduct, getAllProducts };
