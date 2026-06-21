@@ -22,6 +22,10 @@ const FetchingPage = () => {
       <Link href={"/fetching/parallel"}>
         <Button>Parallel Data Fetching</Button>
       </Link>
+
+      <Link href={"/fetching/database"}>
+        <Button>Fetching from Database</Button>
+      </Link>
     </div>
   );
 };
