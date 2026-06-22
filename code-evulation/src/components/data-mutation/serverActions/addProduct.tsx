@@ -10,13 +10,15 @@ export interface Errors {
 
 export interface FormState {
   errors?: Errors;
+  success?: boolean;
+  message?: string;
 }
 
 // addProduct serverAction
 const addProduct = async (
   prevState: FormState | undefined,
   formData: FormData,
-) => {
+): Promise<FormState> => {
   const title = formData.get("title") as string;
   const description = (formData.get("description") as string) || null;
   const price = Number(formData.get("price"));
@@ -30,7 +32,7 @@ const addProduct = async (
   }
 
   if (Object.keys(errors).length > 0) {
-    return { errors };
+    return { errors, success: false, message: "Failed to create product" };
   }
 
   try {
@@ -43,13 +45,26 @@ const addProduct = async (
     });
 
     if (!res.ok) {
-      throw new Error("Failed to create product");
+      const result = await res.json();
+      return {
+        errors: {},
+        success: false,
+        message: result.message || "Failed to create product",
+      };
     }
 
-    console.log("Product create successfully");
     revalidatePath("/fetching/database");
+    return {
+      errors: {},
+      success: true,
+      message: "Product created successfully!",
+    };
   } catch (error) {
-    throw new Error((error as Error).message || "Failed to create product");
+    return {
+      errors: {},
+      success: false,
+      message: (error as Error).message || "Failed to create product",
+    };
   }
 };
 

@@ -1,10 +1,11 @@
 "use client";
 
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { addProduct, FormState } from "./serverActions/addProduct";
+import { toast } from "sonner";
 
 // CreateProductServer Component
 const CreateProductServer = () => {
@@ -14,6 +15,14 @@ const CreateProductServer = () => {
     addProduct,
     initialState,
   );
+
+  useEffect(() => {
+    if (state?.success && state?.message) {
+      toast.success(state?.message || "Product created successfully");
+    } else if (!state?.success && state?.message) {
+      toast.error(state?.message || "Failed to create product");
+    }
+  }, [state]);
 
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-card border rounded-xl shadow-lg space-y-6">
