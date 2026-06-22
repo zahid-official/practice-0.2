@@ -1,41 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { revalidatePath } from "next/cache";
+import ServerSubmit from "./ServerSubmit";
+
+// addProduct serverAction
+const addProduct = async (formData: FormData) => {
+  "use server";
+
+  const title = formData.get("title") as string;
+  const description = (formData.get("description") as string) || null;
+  const price = Number(formData.get("price"));
+
+  if (!title || !price) {
+    throw new Error("Title and price are required");
+  }
+  try {
+    const res = await fetch("http://localhost:3000/fetching/database/api", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title, description, price }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to create product");
+    }
+
+    revalidatePath("/fetching/database");
+    console.log("Product create successfully");
+  } catch (error: any) {
+    throw new Error(error.message || "Failed to create product");
+  }
+};
 
 // CreateProductServer Component
 const CreateProductServer = () => {
-  // handleSubmit
-  const handleSubmit = async (formData: FormData) => {
-    "use server";
-
-    const title = formData.get("title") as string;
-    const description = (formData.get("description") as string) || null;
-    const price = Number(formData.get("price"));
-
-    if (!title || !price) {
-      throw new Error("Title and price are required");
-    }
-    try {
-      const res = await fetch("http://localhost:3000/fetching/database/api", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, description, price }),
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to create product");
-      }
-
-      revalidatePath("/fetching/database");
-      console.log("Product create successfully");
-    } catch (error: any) {
-      throw new Error(error.message || "Failed to create product");
-    }
-  };
-
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-card border rounded-xl shadow-lg space-y-6">
       <div className="space-y-1">
@@ -46,7 +46,7 @@ const CreateProductServer = () => {
       </div>
 
       {/* Form */}
-      <form action={handleSubmit} className="space-y-4">
+      <form action={addProduct} className="space-y-4">
         <Field>
           <FieldLabel htmlFor="title" className="text-sm font-medium">
             Product Title
@@ -89,9 +89,7 @@ const CreateProductServer = () => {
           />
         </Field>
 
-        <Button type="submit" className="w-full justify-center gap-2">
-          Add Product
-        </Button>
+        <ServerSubmit />
       </form>
     </div>
   );
