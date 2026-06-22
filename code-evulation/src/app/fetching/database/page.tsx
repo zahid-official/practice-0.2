@@ -1,6 +1,6 @@
+import CreateProductServer from "@/components/data-mutation/CreateProductServer";
 import { getAllProducts } from "@/lib/db-operations";
 import { Product } from "../../../../generated/prisma/client";
-import CreateProductClient from "../../../components/data-mutation/CreateProductClient";
 
 // DatabasePage Component
 const DatabasePage = async () => {
@@ -21,7 +21,7 @@ const DatabasePage = async () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Left: Create Form */}
         <div className="lg:col-span-1 lg:sticky lg:top-8">
-          <CreateProductClient />
+          <CreateProductServer />
         </div>
 
         {/* Right: Product List */}
