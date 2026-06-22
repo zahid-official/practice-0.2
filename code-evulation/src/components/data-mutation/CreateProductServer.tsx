@@ -1,41 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Field, FieldLabel } from "@/components/ui/field";
-import { revalidatePath } from "next/cache";
-import ServerSubmit from "./ServerSubmit";
+"use client";
 
-// addProduct serverAction
-const addProduct = async (formData: FormData) => {
-  "use server";
-
-  const title = formData.get("title") as string;
-  const description = (formData.get("description") as string) || null;
-  const price = Number(formData.get("price"));
-
-  if (!title || !price) {
-    throw new Error("Title and price are required");
-  }
-  try {
-    const res = await fetch("http://localhost:3000/fetching/database/api", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, description, price }),
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to create product");
-    }
-
-    revalidatePath("/fetching/database");
-    console.log("Product create successfully");
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to create product");
-  }
-};
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { useActionState } from "react";
+import { Button } from "../ui/button";
+import { Spinner } from "../ui/spinner";
+import { addProduct, FormState } from "./serverActions/addProduct";
 
 // CreateProductServer Component
 const CreateProductServer = () => {
+  const initialState: FormState = { errors: {} };
+
+  const [state, formAction, isPending] = useActionState(
+    addProduct,
+    initialState,
+  );
+
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-card border rounded-xl shadow-lg space-y-6">
       <div className="space-y-1">
@@ -46,7 +25,8 @@ const CreateProductServer = () => {
       </div>
 
       {/* Form */}
-      <form action={addProduct} className="space-y-4">
+      <form action={formAction} className="space-y-4">
+        {/* title */}
         <Field>
           <FieldLabel htmlFor="title" className="text-sm font-medium">
             Product Title
@@ -55,12 +35,15 @@ const CreateProductServer = () => {
             id="title"
             name="title"
             type="text"
-            required
             placeholder="e.g. Wireless Headset"
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           />
+          {state?.errors?.title && (
+            <FieldError>{state.errors.title}</FieldError>
+          )}
         </Field>
 
+        {/* description */}
         <Field>
           <FieldLabel htmlFor="description" className="text-sm font-medium">
             Description
@@ -72,8 +55,13 @@ const CreateProductServer = () => {
             rows={3}
             className="flex min-h-20 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
           />
+
+          {state?.errors?.description && (
+            <FieldError>{state.errors.description}</FieldError>
+          )}
         </Field>
 
+        {/* price */}
         <Field>
           <FieldLabel htmlFor="price" className="text-sm font-medium">
             Price (USD)
@@ -83,13 +71,29 @@ const CreateProductServer = () => {
             name="price"
             type="number"
             min="0"
-            required
             placeholder="e.g. 99"
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           />
+          {state?.errors?.price && (
+            <FieldError>{state.errors.price}</FieldError>
+          )}
         </Field>
 
-        <ServerSubmit />
+        {/* button submit */}
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="w-full justify-center gap-2"
+        >
+          {isPending ? (
+            <>
+              <Spinner />
+              Adding...
+            </>
+          ) : (
+            "Add Product"
+          )}
+        </Button>
       </form>
     </div>
   );
