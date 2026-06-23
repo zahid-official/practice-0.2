@@ -1,6 +1,9 @@
 import CreateProductServer from "@/components/data-mutation/CreateProductServer";
 import { getAllProducts } from "@/lib/db-operations";
 import { Product } from "../../../../generated/prisma/client";
+import { Button } from "@/components/ui/button";
+import { Edit } from "lucide-react";
+import Link from "next/link";
 
 // DatabasePage Component
 const DatabasePage = async () => {
@@ -57,6 +60,14 @@ const DatabasePage = async () => {
                     <span className="text-base font-bold text-primary">
                       ${product.price}
                     </span>
+                  </div>
+
+                  <div>
+                    <Link href={`/fetching/database/${product.id}`}>
+                      <Button>
+                        <Edit /> Edit
+                      </Button>
+                    </Link>
                   </div>
                 </li>
               ))}

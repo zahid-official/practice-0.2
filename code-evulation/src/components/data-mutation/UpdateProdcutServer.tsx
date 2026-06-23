@@ -7,9 +7,11 @@ import { Product } from "../../../generated/prisma/client";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import editProduct from "./serverActions/editProduct";
+import { useRouter } from "next/navigation";
 
 // UpdateProdcutServer Component
 const UpdateProdcutServer = ({ product }: { product: Product }) => {
+  const router = useRouter();
   const editProductWithId = editProduct.bind(null, product?.id);
   const [state, formAction, isPending] = useActionState(
     editProductWithId,
@@ -19,10 +21,11 @@ const UpdateProdcutServer = ({ product }: { product: Product }) => {
   useEffect(() => {
     if (state?.success && state?.message) {
       toast.success(state?.message || "Product updated successfully");
+      router.push("/fetching/database");
     } else if (!state?.success && state?.message) {
       toast.error(state?.message || "Failed to update product");
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <div className="max-w-md w-full mx-auto p-6 bg-card border rounded-xl shadow-lg space-y-6">
