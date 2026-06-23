@@ -65,4 +65,17 @@ const updateProduct = async (payload: Omit<Product, "id">, id: number) => {
   });
 };
 
-export { createProduct, getAllProducts, getProduct, updateProduct };
+// deleteProduct
+const deleteProduct = async (id: number) => {
+  return await prisma.product.delete({
+    where: { id },
+  });
+};
+
+export {
+  createProduct,
+  getAllProducts,
+  getProduct,
+  updateProduct,
+  deleteProduct,
+};

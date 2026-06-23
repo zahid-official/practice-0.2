@@ -1,9 +1,10 @@
 import CreateProductServer from "@/components/data-mutation/CreateProductServer";
-import { getAllProducts } from "@/lib/db-operations";
-import { Product } from "../../../../generated/prisma/client";
+import DeleteProductServer from "@/components/data-mutation/DeleteProductServer";
 import { Button } from "@/components/ui/button";
+import { getAllProducts } from "@/lib/db-operations";
 import { Edit } from "lucide-react";
 import Link from "next/link";
+import { Product } from "../../../../generated/prisma/client";
 
 // DatabasePage Component
 const DatabasePage = async () => {
@@ -62,12 +63,14 @@ const DatabasePage = async () => {
                     </span>
                   </div>
 
-                  <div>
+                  <div className="flex justify-between items-center gap-3">
                     <Link href={`/fetching/database/${product.id}`}>
-                      <Button>
+                      <Button variant={"secondary"}>
                         <Edit /> Edit
                       </Button>
                     </Link>
+
+                    <DeleteProductServer productId={product.id} />
                   </div>
                 </li>
               ))}
