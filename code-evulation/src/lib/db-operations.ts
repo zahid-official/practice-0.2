@@ -43,6 +43,13 @@ const getAllProducts = async () => {
   return await prisma.product.findMany();
 };
 
+// getProduct
+const getProduct = async (id: number) => {
+  return await prisma.product.findUnique({
+    where: { id },
+  });
+};
+
 // createProduct
 const createProduct = async (payload: Omit<Product, "id">) => {
   return await prisma.product.create({
@@ -50,4 +57,12 @@ const createProduct = async (payload: Omit<Product, "id">) => {
   });
 };
 
-export { createProduct, getAllProducts };
+// updateProduct
+const updateProduct = async (payload: Omit<Product, "id">, id: number) => {
+  return await prisma.product.update({
+    where: { id },
+    data: payload,
+  });
+};
+
+export { createProduct, getAllProducts, getProduct, updateProduct };

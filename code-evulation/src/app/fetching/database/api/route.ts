@@ -1,7 +1,8 @@
 import { createProduct } from "@/lib/db-operations";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-const POST = async (req: Request) => {
+// POST request to create a new product
+const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
     await createProduct(body);
