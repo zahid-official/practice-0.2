@@ -1,6 +1,10 @@
 "use client";
 
-import { SignInButton, UserButton } from "@clerk/nextjs";
+import {
+  SignInButton,
+  SignOutButton,
+  Show,
+} from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -38,8 +42,14 @@ const Navbar = () => {
           </Link>
         );
       })}
-      <SignInButton mode="modal" />
-      <UserButton />
+      <Show when="signed-out">
+        <SignInButton mode="modal" />
+      </Show>
+
+      <Show when="signed-in">
+        <Link href={"/authentication/user-profile"}>Profile</Link>
+        <SignOutButton />
+      </Show>
     </nav>
   );
 };
