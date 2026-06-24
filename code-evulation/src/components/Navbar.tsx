@@ -1,5 +1,6 @@
 "use client";
 
+import { SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -37,6 +38,8 @@ const Navbar = () => {
           </Link>
         );
       })}
+      <SignInButton mode="modal" />
+      <UserButton />
     </nav>
   );
 };

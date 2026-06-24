@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -45,11 +46,13 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Toaster richColors />
-        </ThemeProvider>
+        <ClerkProvider>
+          <ThemeProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Toaster richColors />
+          </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
