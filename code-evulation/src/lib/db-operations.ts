@@ -39,8 +39,18 @@ try {
 }
 
 // getAllProducts function
-const getAllProducts = async () => {
-  return await prisma.product.findMany();
+const getAllProducts = async (query?: string) => {
+  if (!query) {
+    return await prisma.product.findMany();
+  }
+  return await prisma.product.findMany({
+    where: {
+      OR: [
+        { title: { contains: query } },
+        { description: { contains: query } },
+      ],
+    },
+  });
 };
 
 // getProduct

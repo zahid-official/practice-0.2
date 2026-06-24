@@ -5,10 +5,16 @@ import { getAllProducts } from "@/lib/db-operations";
 import { Edit } from "lucide-react";
 import Link from "next/link";
 import { Product } from "../../../../generated/prisma/client";
+import SearchInput from "@/components/data-mutation/SearchInput";
+
+interface IProps {
+  searchParams: Promise<{ query?: string }>;
+}
 
 // DatabasePage Component
-const DatabasePage = async () => {
-  const products: Product[] = await getAllProducts();
+const DatabasePage = async ({ searchParams }: IProps) => {
+  const { query } = await searchParams;
+  const products: Product[] = await getAllProducts(query || "");
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
@@ -20,6 +26,10 @@ const DatabasePage = async () => {
           Add new products using Next.js Server Actions and list them directly
           from the SQLite database.
         </p>
+      </div>
+
+      <div className="flex justify-center items-center max-w-sm mx-auto">
+        <SearchInput />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
