@@ -1,12 +1,9 @@
 "use client";
 
-import {
-  SignInButton,
-  SignOutButton,
-  Show,
-} from "@clerk/nextjs";
+import { SignInButton, SignOutButton, Show } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "./ui/button";
 
 // Navbar Component
 const Navbar = () => {
@@ -18,8 +15,8 @@ const Navbar = () => {
     { label: "Gallery", href: "/gallery" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
-    { label: "Login", href: "/login" },
-    { label: "Register", href: "/register" },
+    // { label: "Login", href: "/login" },
+    // { label: "Register", href: "/register" },
     { label: "Dashboard", href: "/dashboard" },
     { label: "Rendering", href: "/rendering" },
     { label: "Fetching", href: "/fetching" },
@@ -43,12 +40,16 @@ const Navbar = () => {
         );
       })}
       <Show when="signed-out">
-        <SignInButton mode="modal" />
+        <SignInButton>
+          <Button>Sign In</Button>
+        </SignInButton>
       </Show>
 
       <Show when="signed-in">
         <Link href={"/authentication/user-profile"}>Profile</Link>
-        <SignOutButton />
+        <SignOutButton>
+          <Button>Sign Out</Button>
+        </SignOutButton>
       </Show>
     </nav>
   );
