@@ -2,10 +2,14 @@
 
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import { Roles } from "../../../../types/globals";
 
 // updateUserRole Helper Function
-const updateUserRole = async (id: string, role: string) => {
+const updateUserRole = async (formData: FormData) => {
   const { sessionClaims, userId } = await auth();
+  const id = formData.get("id") as string;
+  const role = formData.get("role") as Roles;
+
   if (userId === id) {
     throw new Error("You are not authorized to change your own role.");
   }
@@ -29,14 +33,14 @@ const updateUserRole = async (id: string, role: string) => {
 };
 
 // makeAdmin serverAction
-const makeAdmin = async ({ id, role }: { id: string; role: string }) => {
-  await updateUserRole(id, role);
+const makeAdmin = async (formData: FormData) => {
+  await updateUserRole(formData);
   console.log("Role changed successfully");
 };
 
 // removeAdmin serverAction
-const removeAdmin = async ({ id, role }: { id: string; role: string }) => {
-  await updateUserRole(id, role);
+const removeAdmin = async (formData: FormData) => {
+  await updateUserRole(formData);
   console.log("Role removed successfully");
 };
 
