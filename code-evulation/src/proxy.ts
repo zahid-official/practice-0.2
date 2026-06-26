@@ -30,11 +30,27 @@
 // export { proxy };
 
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher(["/authentication(.*)"]);
+const isAdmin = createRouteMatcher(["/admin(.*)"]);
+const isModerator = createRouteMatcher(["/moderator(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
+  // Check for protected routes
   if (isProtectedRoute(req)) await auth.protect();
+
+  if (isAdmin(req) || isModerator(req)) {
+    const { sessionClaims } = await auth();
+
+    // Check for ADMIN role
+    if (isAdmin(req) && sessionClaims?.metadata?.role !== "ADMIN")
+      return NextResponse.redirect(new URL("/", req.url));
+
+    // Check for MODERATOR role
+    if (isModerator(req) && sessionClaims?.metadata?.role !== "MODERATOR")
+      return NextResponse.redirect(new URL("/", req.url));
+  }
 });
 
 export const config = {
