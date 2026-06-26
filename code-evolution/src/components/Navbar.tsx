@@ -1,0 +1,58 @@
+"use client";
+
+import { SignInButton, SignOutButton, Show } from "@clerk/nextjs";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "./ui/button";
+
+// Navbar Component
+const Navbar = () => {
+  const navlinks = [
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: "Articles", href: "/articles" },
+    { label: "Products", href: "/products" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+    // { label: "Login", href: "/login" },
+    // { label: "Register", href: "/register" },
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Rendering", href: "/rendering" },
+    { label: "Fetching", href: "/fetching" },
+  ];
+
+  const pathName = usePathname();
+  return (
+    <nav className="py-8 flex gap-4 border-b justify-center items-center">
+      {navlinks.map((link, index) => {
+        const isActive =
+          pathName === link.href ||
+          (pathName.startsWith(link.href) && link.href !== "/");
+        return (
+          <Link
+            className={`${isActive ? "underline underline-offset-4 text-amber-500" : ""} hover:text-cyan-500`}
+            key={index}
+            href={link.href}
+          >
+            {link.label}
+          </Link>
+        );
+      })}
+      <Show when="signed-out">
+        <SignInButton>
+          <Button>Sign In</Button>
+        </SignInButton>
+      </Show>
+
+      <Show when="signed-in">
+        <Link href={"/authentication/user-profile"}>Profile</Link>
+        <SignOutButton>
+          <Button>Sign Out</Button>
+        </SignOutButton>
+      </Show>
+    </nav>
+  );
+};
+
+export default Navbar;
